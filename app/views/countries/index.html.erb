@@ -1,0 +1,34 @@
+<h1>COUNTRIES INDEX PAGE</h1>
+
+<%# 
+  Country
+  -> City
+     -> Airport
+%>
+
+<div>
+  <ul>
+  <% @countries.each do |cnt| %>
+    <li>
+      <h2><%= cnt.name %></h2>
+
+      <ul>
+      <% cnt.cities.each do |city| %>
+        <li>
+          <h3><%= city.name %></h3>
+          <ul>
+          <% city.airports.each do |arp| %>
+            <li>
+              <%= arp.name %>
+            </li>
+          <% end %>
+          </ul>
+        </li>
+      <% end %>
+
+      </ul>
+    </li>
+  <% end %>
+
+  </ul>
+</div>
