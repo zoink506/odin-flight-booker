@@ -7,8 +7,10 @@
 #   Character.create(name: "Luke", movie: movies.first)
 
 # Clear the tables
-Country.destroy_all
+# Tables must be cleared in order of dependent foreign keys or error is thrown
+Airport.destroy_all
 City.destroy_all
+Country.destroy_all
 
 # Create countries of ten most visited airports in the world
 Country.create([
@@ -48,4 +50,27 @@ City.create([
     country_id: Country.find_by(code: "FRA").id },
   { name: "Delhi",
     country_id: Country.find_by(code: "IND").id }
+])
+
+Airport.create([
+  { name: "Hartsfield–Jackson Atlanta International Airport",
+    city_id: City.find_by(name: "Atlanta").id },
+  { name: "Dallas Fort Worth International Airport",
+    city_id: City.find_by(name: "Dallas").id },
+  { name: "Denver International Airport",
+    city_id: City.find_by(name: "Denver").id },
+  { name: "O'Hare International Airport",
+    city_id: City.find_by(name: "Chicago").id },
+  { name: "Dubai International Airport",
+    city_id: City.find_by(name: "Al Garhoud").id },
+  { name: "Los Angeles International Airport",
+    city_id: City.find_by(name: "Los Angeles").id },
+  { name: "Istanbul Airport",
+    city_id: City.find_by(name: "Arnavutköy").id },
+  { name: "Heathrow Airport",
+    city_id: City.find_by(name: "Hillingdon").id },
+  { name: "Charles de Gaulle Airport",
+    city_id: City.find_by(name: "Roissy-en-France").id },
+  { name: "Indira Gandhi International Airport",
+    city_id: City.find_by(name: "Delhi").id }
 ])
