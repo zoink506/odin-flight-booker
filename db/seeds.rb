@@ -91,35 +91,25 @@ Flight.create([
 =end
 
 airports = Airport.all
-total = 0
-flights_created = 0
-
 airports.each do |first_airport|
   airports.each do |second_airport|
-    year = 2023
-    month = rand(1..12)
-    day = rand(1..28)
-    hour = rand(23)
-    minute = rand(59)
-    second = 0
-    dur = 60 * rand(1..16)
-    no_flight_chance = rand(100)
-    total += 1 if first_airport != second_airport
+    if first_airport != second_airport
+      2.times do 
+        year = 2023
+        month = 6
+        day = rand(1..28)
+        hour = rand(23)
+        minute = rand(59)
+        second = 0
+        dur = 60 * rand(1..16)
 
-    if first_airport != second_airport && no_flight_chance > 25
-      puts "flight created from #{first_airport.name} to #{second_airport.name}"
-      flights_created += 1
-      Flight.create(
-        airport_from: first_airport,
-        airport_to: second_airport,
-        departure_date: DateTime.new(year, month, day, hour, minute, second),
-        duration: dur
-      )
-    else
-      puts "No flight created"
+        Flight.create(
+          airport_from: first_airport,
+          airport_to: second_airport,
+          departure_date: DateTime.new(year, month, day, hour, minute, second),
+          duration: dur
+        )
+      end
     end
   end
 end
-puts "#{total}"
-puts "#{flights_created}"
-puts "#{100 * flights_created / total}% of flights created"
