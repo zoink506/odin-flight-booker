@@ -8,6 +8,7 @@
 
 # Clear the tables
 # Tables must be cleared in order of dependent foreign keys or error is thrown
+Flight.destroy_all
 Airport.destroy_all
 City.destroy_all
 Country.destroy_all
@@ -74,3 +75,51 @@ Airport.create([
   { name: "Indira Gandhi International Airport",
     city_id: City.find_by(name: "Delhi").id }
 ])
+
+# DateTime.new(year, month, day, hour, minute, second)
+=begin
+Flight.create([
+  { airport_from: Airport.find_by(name: "Hartsfield–Jackson Atlanta International Airport"),
+    airport_to: Airport.find_by(name: "Istanbul Airport"),
+    departure_date: DateTime.new(2023, 3, 27, 6, 30, 0),
+    duration: 60 * 12 },
+  { airport_from: Airport.find_by(name: "Denver International Airport"),
+    airport_to: Airport.find_by(name: "Heathrow Airport"),
+    departure_date: DateTime.new(2023, 4, 15, 10, 0, 0),
+    duration: 60 * 6 }
+])
+=end
+
+airports = Airport.all
+total = 0
+flights_created = 0
+
+airports.each do |first_airport|
+  airports.each do |second_airport|
+    year = 2023
+    month = rand(1..12)
+    day = rand(1..28)
+    hour = rand(23)
+    minute = rand(59)
+    second = 0
+    dur = 60 * rand(1..16)
+    no_flight_chance = rand(100)
+    total += 1 if first_airport != second_airport
+
+    if first_airport != second_airport && no_flight_chance > 25
+      puts "flight created from #{first_airport.name} to #{second_airport.name}"
+      flights_created += 1
+      Flight.create(
+        airport_from: first_airport,
+        airport_to: second_airport,
+        departure_date: DateTime.new(year, month, day, hour, minute, second),
+        duration: dur
+      )
+    else
+      puts "No flight created"
+    end
+  end
+end
+puts "#{total}"
+puts "#{flights_created}"
+puts "#{100 * flights_created / total}% of flights created"
