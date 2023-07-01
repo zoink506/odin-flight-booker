@@ -28,13 +28,18 @@
 <% if !@flights.nil? %>
   <h2>Available flights:</h2>
 
-  <ul>
-  <% @flights.each do |f| %>
-    <li>
-      <p><%= f.airport_from.name %> -> <%= f.airport_to.name %></p>
-      <p><%= f.departure_date %></p>
-      <p><%= f.duration.to_i / 60 %> hours</p>
-    </li>
+  <%= form_with url: "/bookings/new", method: :get do |form| %>
+    <%= form.hidden_field :passengers, :value => params[:flight][:passengers] %>
+
+    <% @flights.each do |f| %>
+      <div>
+        <%= form.radio_button :flight_id, f.id %>
+        <p><%= f.airport_from.name %> -> <%= f.airport_to.name %></p>
+        <p><%= f.departure_date %></p>
+        <p><%= f.duration.to_i / 60 %> hours</p>
+      </div>
+    <% end %>
+
+    <%= form.submit "Book Flight" %>
   <% end %>
-  </ul>
 <% end %>

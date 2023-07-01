@@ -30,6 +30,7 @@ class FlightsController < ApplicationController
       end
     end
 
+    @passengers = params[:flight][:passengers]
     @airports = Airport.all.map { |a| [a.name, a.id] }
     @flight = Flight.new
     @dates = Flight.pluck(:departure_date).map { |d| d.strftime("%m-%d-%y") }.uniq.sort
