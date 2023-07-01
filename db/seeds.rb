@@ -76,39 +76,32 @@ Airport.create([
     city_id: City.find_by(name: "Delhi").id }
 ])
 
-# DateTime.new(year, month, day, hour, minute, second)
-=begin
-Flight.create([
-  { airport_from: Airport.find_by(name: "Hartsfield–Jackson Atlanta International Airport"),
-    airport_to: Airport.find_by(name: "Istanbul Airport"),
-    departure_date: DateTime.new(2023, 3, 27, 6, 30, 0),
-    duration: 60 * 12 },
-  { airport_from: Airport.find_by(name: "Denver International Airport"),
-    airport_to: Airport.find_by(name: "Heathrow Airport"),
-    departure_date: DateTime.new(2023, 4, 15, 10, 0, 0),
-    duration: 60 * 6 }
-])
-=end
+# Create a flight from every airport to every other airport, for every day in June
 
 airports = Airport.all
 airports.each do |first_airport|
   airports.each do |second_airport|
     if first_airport != second_airport
-      2.times do 
-        year = 2023
-        month = 6
-        day = rand(1..28)
-        hour = rand(23)
-        minute = rand(59)
-        second = 0
-        dur = 60 * rand(1..16)
+      day = 1
+      year = 2023
+      month = 6
 
-        Flight.create(
-          airport_from: first_airport,
-          airport_to: second_airport,
-          departure_date: DateTime.new(year, month, day, hour, minute, second),
-          duration: dur
-        )
+      while(day < 30)
+        2.times do
+          hour = rand(23)
+          minute = rand(59)
+          second = 0
+          dur = 60 * rand(1..16)
+
+          Flight.create(
+            airport_from: first_airport,
+            airport_to: second_airport,
+            departure_date: DateTime.new(year, month, day, hour, minute, second),
+            duration: dur
+          )
+        end
+
+        day += 1
       end
     end
   end

@@ -1,0 +1,40 @@
+<h1>FLIGHTS INDEX PAGE</h1>
+
+<%= form_with url: "/flights", method: :get, model: @flight do |f| %>
+  <div>
+    <%= f.label :airport_from %>
+    <%= f.select(:airport_from, @airports) %>
+  </div>
+
+  <div>
+    <%= f.label :airport_to %>
+    <%= f.select(:airport_to, @airports) %>
+  </div>
+
+  <div>
+    <%= f.label :departure_date %>
+    <%= f.select(:departure_date, @dates) %>
+  </div>
+
+  <div>
+    <% passengers = [[1, 1], [2, 2], [3, 3], [4, 4]] %>
+    <%= f.label :passengers %>
+    <%= f.select :passengers, passengers %>
+  </div>
+
+  <%= f.submit "Search" %>
+<% end %>
+
+<% if !@flights.nil? %>
+  <h2>Available flights:</h2>
+
+  <ul>
+  <% @flights.each do |f| %>
+    <li>
+      <p><%= f.airport_from.name %> -> <%= f.airport_to.name %></p>
+      <p><%= f.departure_date %></p>
+      <p><%= f.duration.to_i / 60 %> hours</p>
+    </li>
+  <% end %>
+  </ul>
+<% end %>
