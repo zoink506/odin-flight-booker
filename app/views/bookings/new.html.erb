@@ -6,3 +6,20 @@
   <p><strong>Departing at:</strong> <%= @flight.departure_date %></p>
   <p><strong>Length of flight:</strong> <%= @flight.duration / 60 %> hours</p>
 </div>
+
+<h2>Input Passengers: </h2>
+<%= form_for @booking do |form| %>
+  <%= form.hidden_field :flight_id, value: @flight.id %>
+
+  <%= form.fields_for :passengers do |sub_form| %>
+    <div>
+    <%= sub_form.label :name %>
+    <%= sub_form.text_field :name %>
+
+    <%= sub_form.label :email %>
+    <%= sub_form.email_field :email %>
+    </div>
+  <% end %>
+
+  <%= form.submit %>
+<% end %>

@@ -1,0 +1,10 @@
+<h1>BOOKING SHOW PAGE</h1>
+
+<p><%= @booking.flight.airport_from %> -> <%= @booking.flight.airport_to %></p>
+
+<% @booking.passengers.each do |p, i| %>
+  <div>
+    <%= p.name %>
+    <%= p.email %>
+  </div>
+<% end %>
