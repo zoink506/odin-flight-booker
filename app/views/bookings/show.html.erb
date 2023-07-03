@@ -1,10 +1,14 @@
 <h1>BOOKING SHOW PAGE</h1>
 
-<p><%= @booking.flight.airport_from %> -> <%= @booking.flight.airport_to %></p>
+<%= render partial: "display-flight", locals: { flight: @booking.flight } %>
 
-<% @booking.passengers.each do |p, i| %>
+<% i = 1 %>
+<% @booking.passengers.each do |p| %>
   <div>
-    <%= p.name %>
-    <%= p.email %>
+    <p>Passenger <%= i %></p>
+    <p><%= p.name %></p>
+    <p><%= p.email %></p>
   </div>
+
+  <% i += 1 %>
 <% end %>

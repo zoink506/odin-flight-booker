@@ -16,16 +16,19 @@ class BookingsController < ApplicationController
     p @booking
     p params[:booking][:passengers_attributes]
     passengers = params[:booking][:passengers_attributes]
+
     passengers.each do |p|
       p p[1][:name]
       p p[1][:email]
       pass = @booking.passengers.build(name: p[1][:name], email: p[1][:email])
+
       if !pass.save
         @booking.destroy
 
         flash[:alert] = "Something went wrong and the passenger couldn't be saved"
         redirect_to root_path and return
       end
+
     end
     # remember to save the passengers also
 
