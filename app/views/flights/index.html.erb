@@ -1,7 +1,7 @@
 
 <h1>Odin Flight Booker</h1>
 
-<%= form_with url: "/flights", method: :get, model: @flight, id: "flight-form" do |f| %>
+<%= form_with url: "/flights", method: :get, model: @flight, class: "flight-form" do |f| %>
   <div>
     <%= f.label :airport_from, "Departure Airport: " %>
     <%= f.select(:airport_from, @airports) %>
@@ -30,12 +30,12 @@
   <h2>Available flights:</h2>
 
   <% if !@flights.empty? %>
-    <%= form_with url: "/bookings/new", method: :get do |form| %>
+    <%= form_with url: "/bookings/new", method: :get, class: "available-flights-form" do |form| %>
       <%= form.hidden_field :passengers, :value => params[:flight][:passengers] %>
 
       <% @flights.each do |f| %>
         <div class="available-flight">
-          <%= form.radio_button :flight_id, f.id %>
+          <%= form.radio_button :flight_id, f.id, required: true %>
           <div>
             <p><%= f.airport_from.name %> -> <%= f.airport_to.name %></p>
             <p><%= f.departure_date %></p>

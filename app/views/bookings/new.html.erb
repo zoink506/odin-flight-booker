@@ -3,7 +3,7 @@
 <%= render partial: "display-flight", locals: { flight: @flight } %>
 
 <h2>Input Passengers: </h2>
-<%= form_with model: @booking, id: "form", data: { controller: "passenger-form" } do |form| %>
+<%= form_with model: @booking, id: "form", class: "flight-form", data: { controller: "passenger-form" } do |form| %>
   <%= form.hidden_field :flight_id, value: @flight.id %>
   <%= form.hidden_field :num_of_passengers, value: @num_of_passengers %>
 
@@ -12,19 +12,27 @@
       <%= form.fields_for :passengers do |sub_form| %>
         <template>
           <div class="sub-form-div" data-controller="passenger-remove">
-            <%= sub_form.label :name %>
-            <%= sub_form.text_field :name %>
+            <div>
+              <div>
+                <%= sub_form.label :name, "Name: " %>
+                <%= sub_form.text_field :name %>
+              </div>
 
-            <%= sub_form.label :email %>
-            <%= sub_form.email_field :email %>
+              <div>
+                <%= sub_form.label :email, "Email: " %>
+                <%= sub_form.email_field :email %>
+              </div>
+            </div>
 
-            <%= button_tag("Remove passenger", type: "button", data: { action: "click->passenger-remove#remove" }) %>
+            <div>
+              <%= button_tag("Remove passenger", type: "button", class: "small-button", data: { action: "click->passenger-remove#remove" }) %>
+            </div>
           </div>
         </template>
       <% end %>
     </div>
 
-    <%= button_tag("New Passenger", type: "button", data: { "passenger-form-target" => "newPassenger", "action" => "click->passenger-form#new" }) %>
+    <%= button_tag("New Passenger", type: "button", class: "small-button", data: { "passenger-form-target" => "newPassenger", "action" => "click->passenger-form#new" }) %>
   </div>
 
   <%= form.submit %>
