@@ -1,24 +1,25 @@
-<h1>FLIGHTS INDEX PAGE</h1>
 
-<%= form_with url: "/flights", method: :get, model: @flight do |f| %>
+<h1>Odin Flight Booker</h1>
+
+<%= form_with url: "/flights", method: :get, model: @flight, id: "flight-form" do |f| %>
   <div>
-    <%= f.label :airport_from %>
+    <%= f.label :airport_from, "Departure Airport: " %>
     <%= f.select(:airport_from, @airports) %>
   </div>
 
   <div>
-    <%= f.label :airport_to %>
+    <%= f.label :airport_to, "Arrival Airport: " %>
     <%= f.select(:airport_to, @airports) %>
   </div>
 
   <div>
-    <%= f.label :departure_date %>
+    <%= f.label :departure_date, "Departure Date: " %>
     <%= f.select(:departure_date, @dates) %>
   </div>
 
   <div>
     <% passengers = [[1, 1], [2, 2], [3, 3], [4, 4]] %>
-    <%= f.label :passengers %>
+    <%= f.label :passengers, "Number of Passengers: " %>
     <%= f.select :passengers, passengers %>
   </div>
 
@@ -33,11 +34,13 @@
       <%= form.hidden_field :passengers, :value => params[:flight][:passengers] %>
 
       <% @flights.each do |f| %>
-        <div>
+        <div class="available-flight">
           <%= form.radio_button :flight_id, f.id %>
-          <p><%= f.airport_from.name %> -> <%= f.airport_to.name %></p>
-          <p><%= f.departure_date %></p>
-          <p><%= f.duration.to_i / 60 %> hours</p>
+          <div>
+            <p><%= f.airport_from.name %> -> <%= f.airport_to.name %></p>
+            <p><%= f.departure_date %></p>
+            <p><%= f.duration.to_i / 60 %> hours</p>
+          </div>
         </div>
       <% end %>
 
