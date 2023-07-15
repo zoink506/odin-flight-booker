@@ -11,14 +11,14 @@
     <div id="templates">
       <%= form.fields_for :passengers do |sub_form| %>
         <template>
-          <div>
-          <%= sub_form.label :name %>
-          <%= sub_form.text_field :name %>
+          <div class="sub-form-div">
+            <%= sub_form.label :name %>
+            <%= sub_form.text_field :name %>
 
-          <%= sub_form.label :email %>
-          <%= sub_form.email_field :email %>
+            <%= sub_form.label :email %>
+            <%= sub_form.email_field :email %>
 
-          <%= button_tag("Remove passenger", type: "button") %>
+            <%= button_tag("Remove passenger", type: "button") %>
           </div>
         </template>
       <% end %>
